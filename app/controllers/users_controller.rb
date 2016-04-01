@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
   
   def show 
-   @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
   
   def new
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
 
   private
 
@@ -43,17 +45,21 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :location, :email,
                                  :password, :password_confirmation)
   end
+  
+  
   # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-      # 正しいユーザーかどうか確認
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless @user == current_user
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
     end
-    end
+  end
+  
+  
+  
+  # 正しいユーザーかどうか確認
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless @user == current_user
+  end
 end
-

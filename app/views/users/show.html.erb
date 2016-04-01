@@ -1,4 +1,8 @@
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
+
+<h1><%= gravatar_for @user %>
+  <%= @user[:name] %></h1>
+  
+
+<ul>
+<li>Location : <%= @user[:location] %></li>
+</ul>   
